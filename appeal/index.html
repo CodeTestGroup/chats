@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ban Appeal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Ban Appeal</h1>
+    <form id="appealForm">
+        <div>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+        </div>
+        <div>
+            <label for="reason">Reason for Ban Appeal:</label>
+            <textarea id="reason" name="reason" rows="4" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('appealForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        const reason = document.getElementById('reason').value;
+
+        fetch(`https://ntfy.sh/AddEveryoneKnowAppealMS2224552/publish?message=Appeal:+Phone+Number:+${encodeURIComponent(phoneNumber)}+Reason:+${encodeURIComponent(reason)}`)
+            .then(response => {
+                if (response.ok) {
+                    alert('Ban appeal submitted successfully!');
+                    // Clear form fields after successful submission
+                    document.getElementById('phoneNumber').value = '';
+                    document.getElementById('reason').value = '';
+                } else {
+                    alert('Failed to submit ban appeal. Please try again later.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            });
+    });
+</script>
+
+</body>
+</html>
